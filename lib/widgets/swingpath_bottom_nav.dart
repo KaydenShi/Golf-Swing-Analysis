@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:golf_swing_analysis/theme/swingpath_theme.dart';
+import 'package:golf_swing_analysis/widgets/record_options_sheet.dart';
 
 class SwingPathBottomNav extends StatelessWidget {
   const SwingPathBottomNav({
@@ -44,7 +45,7 @@ class SwingPathBottomNav extends StatelessWidget {
                 isSelected: selectedIndex == 1,
                 onTap: () => onTap(1),
               ),
-              _RecordNavButton(onTap: () => onTap(2)),
+              _RecordNavButton(onTap: () => showRecordOptionsSheet(context)),
               _NavItem(
                 icon: Icons.show_chart_rounded,
                 label: 'Progress',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:golf_swing_analysis/theme/swingpath_theme.dart';
+import 'package:golf_swing_analysis/widgets/record_options_sheet.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -341,7 +342,7 @@ class _RecordSwingButton extends StatelessWidget {
       color: SwingPathColors.surface,
       borderRadius: BorderRadius.circular(16),
       child: InkWell(
-        onTap: () {},
+        onTap: () => showRecordOptionsSheet(context),
         borderRadius: BorderRadius.circular(16),
         child: Container(
           padding: const EdgeInsets.all(16),
