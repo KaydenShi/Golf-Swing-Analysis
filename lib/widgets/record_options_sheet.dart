@@ -1,7 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:golf_swing_analysis/theme/swingpath_theme.dart';
+import 'package:image_picker/image_picker.dart';
 
 void showRecordOptionsSheet(BuildContext context) {
+  final ImagePicker picker = ImagePicker();
+
+  Future<void> pickVideo(ImageSource source) async {
+    try {
+      final XFile? video = await picker.pickVideo(
+        source: source,
+        maxDuration: const Duration(minutes: 5),
+      );
+      
+      if (video != null && context.mounted) {
+        // Here you would navigate to the analysis screen with the video path
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Video captured: ${video.name}'),
+            backgroundColor: SwingPathColors.accent,
+          ),
+        );
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error: $e'),
+            backgroundColor: Colors.redAccent,
+          ),
+        );
+      }
+    }
+  }
+
   showModalBottomSheet(
     context: context,
     backgroundColor: SwingPathColors.surface,
@@ -46,7 +77,7 @@ void showRecordOptionsSheet(BuildContext context) {
               subtitle: const Text('Use camera for live analysis'),
               onTap: () {
                 Navigator.pop(context);
-                // TODO: Implement camera logic
+                pickVideo(ImageSource.camera);
               },
             ),
             const SizedBox(height: 8),
@@ -63,7 +94,7 @@ void showRecordOptionsSheet(BuildContext context) {
               subtitle: const Text('Upload a pre-recorded swing'),
               onTap: () {
                 Navigator.pop(context);
-                // TODO: Implement gallery logic
+                pickVideo(ImageSource.gallery);
               },
             ),
             const SizedBox(height: 12),
